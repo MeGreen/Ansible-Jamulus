@@ -1,0 +1,21 @@
+---
+- import_tasks: preflight.yml
+  tags:
+    - jamulus_install
+    - jamulus_configure
+    - jamulus_run
+    - all
+
+- import_tasks: install.yml
+  become: true
+  tags:
+    - jamulus_install
+    - all
+
+
+- import_tasks: configure.yml
+  become: true
+  tags:
+    - jamulus_configure
+    - all
+

@@ -1,0 +1,6 @@
+---
+jamulus_version: 3.9.0
+jamulus_release_tag: r3_9_0
+# jamulus_port: 9100
+jamulus_web_listen_address: "0.0.0.0:{{ jamulus_port }}"
+

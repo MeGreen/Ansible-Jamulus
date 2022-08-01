@@ -1,0 +1,11 @@
+---
+- name: Assert usage of systemd as an init system
+  assert:
+    that: ansible_service_mgr == 'systemd'
+    msg: "This role only works with systemd"
+
+- name: Check if jamulus is installed
+  command: dpkg-query -W jamulus
+  register: jamulus_check_deb
+  failed_when: jamulus_check_deb.rc > 1
+  changed_when: jamulus_check_deb.rc == 1

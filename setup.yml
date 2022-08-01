@@ -1,0 +1,7 @@
+---
+- name: "Set up monitoring"
+  hosts: "{{ target if target is defined else 'jam_servers' }}"
+  become: true
+
+  roles:
+    - jamulus

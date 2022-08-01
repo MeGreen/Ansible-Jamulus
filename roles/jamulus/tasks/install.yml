@@ -1,0 +1,28 @@
+---
+
+- block:
+    - name: Download jamulus binary to local folder
+      become: false
+      get_url:
+        url: "https://github.com/jamulussoftware/jamulus/releases/download/{{ jamulus_release_tag }}/jamulus_headless_{{ jamulus_version }}_ubuntu_{{ go_arch }}.deb"
+        dest: "/tmp/jamulus-{{ jamulus_version }}.ubuntu-{{ go_arch }}.deb"
+        mode: '0644'
+      register: _download_deb
+      until: _download_deb is succeeded
+      retries: 5
+      delay: 2
+      check_mode: false
+      when: jamulus_check_deb.rc == 1
+
+    - name: Install jamulus
+      apt: deb="/tmp/jamulus-{{ jamulus_version }}.ubuntu-{{ go_arch }}.deb"
+      #notify: restart jamulus
+      when: jamulus_check_deb.rc == 1
+    - name: restart jamulus
+      become: true
+      systemd:
+        daemon_reload: true
+        name: jamulus-headless
+        state: restarted
+      when:
+        - not ansible_check_mode
