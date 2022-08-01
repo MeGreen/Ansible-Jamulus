@@ -1,4 +1,4 @@
-# Monitoring via Ansible
+# Jamulus via Ansible
 
 
 This playbook can deploy a jamulus server "easyly"
